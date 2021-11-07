@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cql.mapper.GoodsMapper">
+    <resultMap id="GoodsMapper" type="goods">
+        <id column="id" property="id"/>
+        <result column="goods_name" property="goodsName"/>
+        <result column="price" property="price"/>
+        <result column="description" property="description"/>
+        <result column="num" property="num"/>
+        <result column="picture" property="picture"/>
+        <result column="manufacturer" property="manufacturer"/>
+        <result column="small_type_id" property="smallTypeId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="del_flag" property="delFlag"/>
+        <result column="state" property="state"/>
+        <result column="avgLevel" property="score"/>
+        <association property="smallType" javaType="smallType">
+            <id column="id" property="id"/>
+            <result column="type_name" property="typeName"/>
+        </association>
+    </resultMap>
+
+    <select id="getGoods" parameterType="goods" resultMap="GoodsMapper">
+        SELECT *,AVG(ge.level) avgLevel FROM goods g,small_type st,goods_evaluate ge
+        <where>
+            <if test="id != null and id != '' ">
+                AND g.id=#{id}
+            </if>
+            <if test="goodsName != null and goodsName != '' ">
+                AND g.goods_name=#{goodsName}
+            </if>
+            <if test="price != null and price != '' ">
+                AND g.price=#{price}
+            </if>
+            <if test="description != null and description != '' ">
+                AND g.description=#{description}
+            </if>
+            <if test="num != null and num != '' ">
+                AND g.num=#{num}
+            </if>
+            <if test="picture != null and picture != '' ">
+                AND g.picture=#{picture}
+            </if>
+            <if test="manufacturer != null and manufacturer != '' ">
+                AND g.manufacturer=#{manufacturer}
+            </if>
+            <if test="smallTypeId != null and smallTypeId != '' ">
+                AND g.small_type_id=#{smallTypeId}
+            </if>
+            <if test="createTime != null and createTime != '' ">
+                AND g.create_time=#{createTime}
+            </if>
+            <if test="state != null and state != '' ">
+                AND g.state=#{state}
+            </if>
+            <if test="score != null and score != '' ">
+                AND g.score=#{score}
+            </if>
+            AND g.del_flag='0' AND g.small_type_id=st.id AND g.id=ge.goods_id
+        </where>
+    </select>
+
+    <insert id="addGoods" parameterType="goods">
+        INSERT INTO goods
+        VALUES (#{id},#{goodsName},#{price},#{description},#{num},#{picture},#{manufacturer},#{smallTypeId},#{createTime},'0',#{state},#{score})
+    </insert>
+
+    <update id="setGoods" parameterType="goods">
+        UPDATE goods
+        <trim prefix="set" suffixOverrides=",">
+            <if test="goodsName != null and goodsName != '' ">
+                goods_name=#{goodsName},
+            </if>
+            <if test="price != null and price != '' ">
+                price=#{price},
+            </if>
+            <if test="description != null and description != '' ">
+                description=#{description},
+            </if>
+            <if test="num != null and num != '' ">
+                num=#{num},
+            </if>
+            <if test="picture != null and picture != '' ">
+                picture=#{picture},
+            </if>
+            <if test="manufacturer != null and manufacturer != '' ">
+                manufacturer=#{manufacturer},
+            </if>
+            <if test="smallTypeId != null and smallTypeId != '' ">
+                small_type_id=#{smallTypeId},
+            </if>
+            <if test="createTime != null and createTime != '' ">
+                create_time=#{createTime},
+            </if>
+            <if test="state != null and state != ''">
+                state=#{state},
+            </if>
+            <if test="score != null and score != '' ">
+                score=#{score},
+            </if>
+        </trim>
+        WHERE id=#{id}
+    </update>
+
+    <delete id="upGoods" parameterType="goods">
+        UPDATE goods
+        <trim prefix="set" suffixOverrides=",">
+            state='0',
+        </trim>
+        WHERE id=#{id}
+    </delete>
+
+    <delete id="downGoods" parameterType="goods">
+        UPDATE goods
+        <trim prefix="set" suffixOverrides=",">
+            state='1',
+        </trim>
+        WHERE id=#{id}
+    </delete>
+
+    <delete id="delGoods" parameterType="goods">
+        UPDATE goods
+        <trim prefix="set" suffixOverrides=",">
+            del_flag='1',
+        </trim>
+        WHERE id=#{id}
+    </delete>
+</mapper>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cql.mapper.OrdMapper">
+    <resultMap id="OrdMapper" type="com.cql.entity.Ord">
+        <id column="id" property="id"/>
+        <result column="goods_id" property="goodsId"/>
+        <result column="user_id" property="userId"/>
+        <result column="address_id" property="addressId"/>
+        <result column="num" property="num"/>
+        <result column="price" property="price"/>
+        <result column="ord_no" property="ordNo"/>
+        <result column="ord_state" property="ordState"/>
+        <result column="create_time" property="createTime"/>
+        <result column="del_flag" property="delFlag"/>
+        <association property="goods" javaType="goods">
+            <id column="id" property="id"/>
+            <result column="goods_name" property="goodsName"/>
+            <result column="goodsPrice" property="price"/>
+        </association>
+        <association property="user" javaType="user">
+            <id column="id" property="id"/>
+            <result column="user_name" property="userName"/>
+        </association>
+        <association property="address" javaType="address">
+            <id column="id" property="id"/>
+            <result column="address" property="address"/>
+            <result column="consignee" property="consignee"/>
+            <result column="consignee_tel" property="consigneeTel"/>
+        </association>
+    </resultMap>
+
+    <select id="getOrds" parameterType="ord" resultMap="OrdMapper">
+        SELECT *,g.price goodsPrice FROM ord o,goods g,user u,address a
+        <where>
+            <if test="id != null and id != '' ">
+                AND o.id=#{id}
+            </if>
+            <if test="goodsId != null and goodsId != '' ">
+                AND o.goods_id=#{goodsId}
+            </if>
+            <if test="userId != null and userId != '' ">
+                AND o.user_id=#{userId}
+            </if>
+            <if test="addressId != null and addressId != '' ">
+                AND o.address_id=#{addressId}
+            </if>
+            <if test="num != null and num != '' ">
+                AND o.num=#{num}
+            </if>
+            <if test="price != null and price != '' ">
+                AND o.price=#{price}
+            </if>
+            <if test="ordNo != null and ordNo != '' ">
+                AND o.ord_no=#{ordNo}
+            </if>
+            <if test="ordState != null and ordState != '' ">
+                AND o.ord_state=#{ordState}
+            </if>
+            <if test="createTime != null and createTime != '' ">
+                AND o.create_time=#{createTime}
+            </if>
+            AND o.del_flag='0' AND o.goods_id=g.id AND o.user_id=u.id AND o.address_id=a.id
+        </where>
+    </select>
+
+    <insert id="addOrd" parameterType="ord">
+        INSERT INTO ord
+        VALUES (#{id},#{goodsId},#{userId},#{addressId},#{num},#{price},#{ordNo},#{ordState},#{createTime},'0')
+    </insert>
+
+    <update id="setOrd" parameterType="ord">
+        UPDATE ord
+        <trim prefix="set" suffixOverrides=",">
+            <if test="goodsId != null and goodsId != '' ">
+                goods_id=#{goodsId},
+            </if>
+            <if test="userId != null and userId != '' ">
+                user_id=#{userId},
+            </if>
+            <if test="addressId != null and addressId != '' ">
+                address_id=#{addressId},
+            </if>
+            <if test="num != null and num != '' ">
+                num=#{num},
+            </if>
+            <if test="price != null and price != '' ">
+                price=#{price},
+            </if>
+            <if test="ordNo != null and ordNo != '' ">
+                ord_no=#{ordNo},
+            </if>
+            <if test="ordState != null and ordState != '' ">
+                ord_state=#{ordState},
+            </if>
+            <if test="createTime != null and createTime != '' ">
+                create_time=#{createTime},
+            </if>
+        </trim>
+        WHERE id=#{id}
+    </update>
+
+    <delete id="delOrd" parameterType="ord">
+        UPDATE ord
+        <trim prefix="set" suffixOverrides=",">
+            del_flag='1',
+        </trim>
+        WHERE id=#{id}
+    </delete>
+</mapper>

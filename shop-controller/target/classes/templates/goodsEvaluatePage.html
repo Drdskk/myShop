@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="head.html"></div>
+<div class="page-content">
+    <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
+        <div class="layui-tab-content" style="overflow-y:auto;">
+            <div class="x-body">
+                <div class="layui-row">
+                    <form class="layui-form layui-col-md12 x-so" action="/goodsEvaluate/getGoodsEvaluates" method="post">
+                        <input type="text" name="user.userName" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                        <input type="text" name="goods.goodsName" placeholder="请输入商品名" autocomplete="off" class="layui-input">
+                        <button class="layui-btn" lay-submit="" lay-filter="sreach" type="submit">
+                            <i class="layui-icon">
+                                &#xe615;
+                            </i>
+                        </button>
+                    </form>
+                </div>
+                <xblock style="height:30px;">
+                    <span>评论列表</span>
+                    <span class="x-right" style="line-height: 30px">
+                        共有数据：<span th:text="${goodsEvaluateList.size()}">0</span> 条
+                    </span>
+                </xblock>
+                <table class="layui-table">
+                    <thead>
+                        <tr>
+                            <th>评论商品</th>
+                            <th>评论用户</th>
+                            <th>评论</th>
+         <!--                   <th>图片</th>-->
+                            <th>评分</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <div id="addressList" th:each="goodsEvaluate : ${goodsEvaluateList}" >
+                            <tr>
+                                <td>
+                                    <span th:text="${goodsEvaluate.goods.goodsName}"/>
+                                </td>
+                                <td>
+                                    <span th:text="${goodsEvaluate.user.userName}"/>
+                                </td>
+                                <td>
+                                    <span th:text="${goodsEvaluate.content}"/>
+                                </td>
+<!--                                <td>
+                                    <span th:text="${goods.picture}"/>
+                                </td>-->
+                                <td>
+                                    <span th:text="${goodsEvaluate.level}"/>
+                                </td>
+                                <td class="td-manage">
+                                    <a href="javascript:;" role="button" class="btn btn-danger" th:onclick="goodsEvaluate_del(this,[[${goodsEvaluate.id}]])"><i class="layui-icon">
+                                        &#xe640;
+                                    </i></a>
+                                </td>
+                            </tr>
+                        </div>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function goodsEvaluate_del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            layer.closeAll();
+            $.ajax({
+                url:"/goodsEvaluate/delGoodsEvaluate?id="+id,
+                type:"post",
+                success:function (result) {
+                    if (result == 1){
+                        $(obj).parents("tr").remove();
+                        layer.msg('删除成功!', {icon: 1, time: 1000});
+                    }else {
+                        layer.msg('删除失败',{icon:1,time:1000});
+                    }
+                }
+            });
+        });
+    }
+</script>

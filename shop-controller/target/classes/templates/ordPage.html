@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="head.html"></div>
+<div class="page-content">
+    <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
+        <div class="layui-tab-content" style="overflow-y:auto;">
+            <div class="x-body">
+                <div class="layui-row">
+                    <form class="layui-form layui-col-md12 x-so" action="/ord/getOrds" method="post">
+                        <input type="text" name="user.userName" placeholder="用户名" autocomplete="off" class="layui-input">
+                        <input type="text" name="goods.goodsName" placeholder="商品名" autocomplete="off" class="layui-input">
+                        <button class="layui-btn" lay-submit="" lay-filter="sreach" type="submit">
+                            <i class="layui-icon">
+                                &#xe615;
+                            </i>
+                        </button>
+                    </form>
+                </div>
+                <xblock style="height:30px;">
+                    <span>订单列表</span>
+                    <span class="x-right" style="line-height: 30px">
+                        共有数据：<span th:text="${ordList.size()}">0</span> 条
+                    </span>
+                </xblock>
+                <table class="layui-table">
+                    <thead>
+                        <tr>
+                            <th>商品名</th>
+                            <th>收货信息</th>
+                            <th>数量</th>
+                            <th>总价格</th>
+                            <th>订单状态</th>
+                            <th>创建时间</th>
+                            <th>订单编号</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <div id="userList" th:each="ord: ${ordList}" >
+                            <tr>
+                                <td>
+                                    <span th:text="${ord.goods.goodsName}"/>
+                                </td>
+                                <td>
+                                    <span th:text="${ord.address.consignee}+'-'+${ord.address.consigneeTel}+'-'+${ord.address.address}"/>
+                                </td>
+                                <td>
+                                    <span th:text="${ord.num}"/>
+                                </td>
+                                <td>
+                                    <span th:text="${ord.price}"/>
+                                </td>
+                                <td>
+                                    <span th:text="${ord.ordState}"/>
+                                </td>
+                                <td>
+                                    <span th:text="${ord.createTime}"/>
+                                </td>
+                                <td>
+                                    <span th:text="${ord.ordNo}"/>
+                                </td>
+                                <td class="td-manage">
+                                    <a th:attr="href='ordForm?id='+${ord.id}" role="button" class="btn btn-info"><i class="layui-icon">
+                                        &#xe642;
+                                    </i></a>
+                                    <a href="javascript:;" role="button" class="btn btn-danger" th:onclick="ord_del(this,[[${ord.id}]])"><i class="layui-icon">
+                                        &#xe640;
+                                    </i></a>
+                                </td>
+                            </tr>
+                        </div>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function ord_del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            layer.closeAll();
+            $.ajax({
+                url:"/ord/delOrd?id="+id,
+                type:"post",
+                success:function (result) {
+                    if (result == 1){
+                        $(obj).parents("tr").remove();
+                        layer.msg('删除成功!', {icon: 1, time: 1000});
+                    }else {
+                        layer.msg('删除失败',{icon:1,time:1000});
+                    }
+                }
+            });
+        });
+    }
+</script>

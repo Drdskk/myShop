@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cql.mapper.SmallTypeMapper">
+    <resultMap id="SmallTypeMapper" type="com.cql.entity.SmallType">
+        <id column="id" property="id"/>
+        <result column="big_type_id" property="bigTypeId"/>
+        <result column="type_name" property="typeName"/>
+        <result column="create_time" property="createTime"/>
+        <result column="del_flag" property="delFlag"/>
+        <association property="bigType" javaType="bigType">
+            <id column="id" property="id"/>
+            <result column="bigTypeName" property="typeName"/>
+        </association>
+    </resultMap>
+
+    <select id="getSmallTypes" parameterType="smallType" resultMap="SmallTypeMapper">
+        SELECT *,bt.type_name bigTypeName FROM small_type st,big_type bt
+        <where>
+            <if test="id != null and id != '' ">
+                AND st.id=#{id}
+            </if>
+            <if test="bigTypeId != null and bigTypeId != '' ">
+                AND st.big_type_id=#{bigTypeId}
+            </if>
+            <if test="typeName != null and typeName != '' ">
+                AND st.type_name=#{typeName}
+            </if>
+            <if test="createTime != null and createTime != '' ">
+                AND st.create_time=#{createTime}
+            </if>
+            AND st.del_flag='0' AND st.big_type_id=bt.id
+        </where>
+    </select>
+
+    <insert id="addSmallType" parameterType="smallType">
+        INSERT INTO small_type
+        VALUES (#{id},#{bigTypeId},#{typeName},#{createTime},'0')
+    </insert>
+
+    <update id="setSmallType" parameterType="smallType">
+        UPDATE small_type
+        <trim prefix="set" suffixOverrides=",">
+            <if test="bigTypeId != null and bigTypeId != '' ">
+                big_type_id=#{bigTypeId},
+            </if>
+            <if test="typeName != null and typeName != '' ">
+                type_name=#{typeName},
+            </if>
+            <if test="createTime != null and createTime != '' ">
+                create_time=#{createTime},
+            </if>
+        </trim>
+        WHERE id=#{id}
+    </update>
+
+    <delete id="delSmallType" parameterType="smallType">
+        UPDATE small_type
+        <trim prefix="set" suffixOverrides=",">
+            del_flag='1',
+        </trim>
+        WHERE id=#{id}
+    </delete>
+</mapper>

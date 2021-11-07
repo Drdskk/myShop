@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cql.mapper.UserMapper">
+<!--    <resultMap id="UserMapper" type="com.cql.entity.User">
+        <id column="id" property="id"/>
+        <result column="user_name" property="userName"/>
+        <result column="password" property="password"/>
+        <result column="real_name" property="realName"/>
+        <result column="id_card" property="idCard"/>
+        <result column="sex" property="sex"/>
+        <result column="tel" property="tel"/>
+        <result column="create_time" property="createTime"/>
+        <result column="del_flag" property="delFlag"/>
+    </resultMap>-->
+
+    <select id="getUsers" parameterType="user" resultType="user">
+        SELECT * FROM user
+        <where>
+            <if test="id != null and id != '' ">
+                AND id=#{id}
+            </if>
+            <if test="userName != null and userName != '' ">
+                AND user_name=#{userName}
+            </if>
+            <if test="password != null and password != '' ">
+                AND password=#{password}
+            </if>
+            <if test="realName != null and realName != '' ">
+                AND real_name=#{realName}
+            </if>
+            <if test="idCard != null and idCard != '' ">
+                AND id_card=#{idCard}
+            </if>
+            <if test="sex != null and sex != '' ">
+                AND sex=#{sex}
+            </if>
+            <if test="tel != null and tel != '' ">
+                AND tel=#{tel}
+            </if>
+            <if test="createTime != null and createTime != '' ">
+                AND create_time=#{createTime}
+            </if>
+            AND del_flag='0' AND id!='1'
+        </where>
+    </select>
+
+    <select id="getUser" parameterType="user" resultType="user">
+        SELECT * FROM user
+        <where>
+            <if test="userName != null and userName != '' ">
+                AND user_name=#{userName}
+            </if>
+            <if test="password != null and password != '' ">
+                AND password=#{password}
+            </if>
+            AND del_flag='0'
+        </where>
+    </select>
+
+    <insert id="addUser" parameterType="user">
+        INSERT INTO user(id,user_name,password,real_name,id_card,sex,tel,create_time,del_flag)
+        VALUES (#{id},#{userName},#{password},#{realName},#{idCard},#{sex},#{tel},#{createTime},'0')
+    </insert>
+
+    <update id="setUser" parameterType="user">
+        UPDATE user
+        <trim prefix="set" suffixOverrides=",">
+            <if test="userName != null and userName != '' ">
+                user_name=#{userName},
+            </if>
+            <if test="password != null and password != '' ">
+                password=#{password},
+            </if>
+            <if test="realName != null and realName != '' ">
+                real_name=#{realName},
+            </if>
+            <if test="idCard != null and idCard != '' ">
+                id_card=#{idCard},
+            </if>
+            <if test="sex != null and sex != '' ">
+                sex=#{sex},
+            </if>
+            <if test="tel != null and tel != '' ">
+                tel=#{tel},
+            </if>
+            <if test="createTime != null and createTime != '' ">
+                create_time=#{createTime},
+            </if>
+        </trim>
+        WHERE id=#{id}
+    </update>
+
+    <delete id="delUser" parameterType="user">
+        UPDATE user
+        <trim prefix="set" suffixOverrides=",">
+            del_flag='1',
+        </trim>
+        WHERE id=#{id}
+    </delete>
+</mapper>

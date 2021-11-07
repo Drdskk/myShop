@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="head.html"></div>
+<div class="page-content">
+    <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
+        <div class="layui-tab-content" style="overflow-y:auto;">
+            <div class="x-body">
+                <div class="layui-fluid">
+                    <div class="layui-card">
+                        <div class="layui-card-header">添加/修改</div>
+                        <div class="layui-card-body" style="padding: 15px;">
+                            <form class="layui-form" method="post"
+                                  lay-filter="component-form-group" id="addressAddForm">
+                                <input type="hidden" name="id" th:value="${address.id}">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">收货人</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="consignee" lay-verify="required" placeholder="收货人"
+                                               autocomplete="off" class="layui-input" th:attr="value=${address.consignee}">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">收货人电话</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="consigneeTel" lay-verify="required|tel" placeholder="收货人电话"
+                                               autocomplete="off" class="layui-input" th:attr="value=${address.consigneeTel}">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">地址</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="address" lay-verify="required" placeholder="地址"
+                                               autocomplete="off" class="layui-input" th:attr="value=${address.address}">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">选择用户</label>
+                                    <div class="layui-input-block">
+                                        <select name="userId">
+                                            <option disabled selected>--请选择--</option>
+                                            <span th:each="user:${userList}">
+                                                <option th:value="${user.id}" th:text="${user.userName}"></option>
+                                            </span>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item layui-layout-admin">
+                                    <div class="layui-input-block">
+                                        <div class="layui-footer" style="left: 0;">
+                                            <button id="addressAdd" class="layui-btn" lay-submit="" lay-filter="component-form-demo1"
+                                                    type="button">立即提交
+                                            </button>
+                                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

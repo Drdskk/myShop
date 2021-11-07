@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="head.html"></div>
+<div class="page-content">
+    <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
+        <div class="layui-tab-content" style="overflow-y:auto;">
+            <div class="x-body">
+                <div class="layui-fluid">
+                    <div class="layui-card">
+                        <div class="layui-card-header">添加/修改</div>
+                        <div class="layui-card-body" style="padding: 15px;">
+                            <form class="layui-form" method="post"
+                                  lay-filter="component-form-group" id="userAddForm">
+                                <input type="hidden" name="id" th:value="${user.id}">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">用户名</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="userName" lay-verify="required" placeholder="用户名"
+                                               autocomplete="off" class="layui-input" th:attr="value=${user.userName}">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">真实姓名</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="realName" lay-verify="required" placeholder="真实姓名"
+                                               autocomplete="off" class="layui-input" th:attr="value=${user.realName}">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">身份证号</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="idCard" lay-verify="required" placeholder="身份证号"
+                                               autocomplete="off" class="layui-input" th:attr="value=${user.idCard}">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">手机号</label>
+                                    <div class="layui-input-block">
+                                        <input type="tel" name="tel" lay-verify="required|tel" placeholder="手机号"
+                                               autocomplete="off" class="layui-input" th:attr="value=${user.tel}">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">性别</label>
+                                    <div class="layui-input-block">
+                                        <input type="radio" name="sex" value="男" title="男" checked>
+                                        <div class="layui-unselect layui-form-radio layui-form-radioed">
+											<i class="layui-anim layui-icon"></i>
+                                            <div>男</div>
+                                        </div>
+                                        <input type="radio" name="sex" value="女" title="女">
+                                        <div class="layui-unselect layui-form-radio">
+											<i class="layui-anim layui-icon"></i>
+                                            <div>女</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">密码</label>
+                                    <div class="layui-input-block">
+                                        <input type="password" name="password" lay-verify="required" placeholder="密码"
+                                               autocomplete="off" class="layui-input" th:attr="value=${user.password}">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item layui-layout-admin">
+                                    <div class="layui-input-block">
+                                        <div class="layui-footer" style="left: 0;">
+                                            <button id="userAdd" class="layui-btn" lay-submit="" lay-filter="component-form-demo1"
+                                                    type="button">立即提交
+                                            </button>
+                                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

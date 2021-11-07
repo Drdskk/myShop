@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cql.mapper.GoodsEvaluateMapper">
+    <resultMap id="GoodsEvaluateMapper" type="com.cql.entity.GoodsEvaluate">
+        <id column="id" property="id"/>
+        <result column="goods_id" property="goodsId"/>
+        <result column="user_id" property="userId"/>
+        <result column="content" property="content"/>
+        <result column="picture" property="picture"/>
+        <result column="level" property="level"/>
+        <association property="user" javaType="user">
+            <id column="id" property="id"/>
+            <result column="user_name" property="userName"/>
+        </association>
+        <association property="goods" javaType="goods">
+            <id column="id" property="id"/>
+            <result column="goods_name" property="goodsName"/>
+        </association>
+    </resultMap>
+
+    <select id="getGoodsEvaluates" parameterType="goodsEvaluate" resultMap="GoodsEvaluateMapper">
+        SELECT * FROM goods_evaluate ge,user u,goods g
+        <where>
+            <if test="id != null and id != '' ">
+                AND ge.id=#{id}
+            </if>
+            <if test="goodsId != null and goodsId != '' ">
+                AND ge.goods_id=#{goodsId}
+            </if>
+            <if test="userId != null and userId != '' ">
+                AND ge.user_id=#{userId}
+            </if>
+            <if test="content != null and content != '' ">
+                AND ge.content=#{content}
+            </if>
+            <if test="picture != null and picture != '' ">
+                AND ge.picture=#{picture}
+            </if>
+            <if test="level != null and level != '' ">
+                AND ge.level=#{level}
+            </if>
+        </where>
+    </select>
+
+    <insert id="addGoodsEvaluate" parameterType="goodsEvaluate">
+        INSERT INTO goods_evaluate
+        VALUES (#{id},#{goodsId},#{userId},#{content},#{picture},#{level})
+    </insert>
+
+    <update id="setGoodsEvaluate" parameterType="goodsEvaluate">
+        UPDATE goods_evaluate
+        <trim prefix="set" suffixOverrides=",">
+            <if test="goodsId != null and goodsId != '' ">
+                goods_id=#{goodsId},
+            </if>
+            <if test="userId != null and userId != '' ">
+                user_id=#{userId},
+            </if>
+            <if test="content != null and content != '' ">
+                content=#{content},
+            </if>
+            <if test="picture != null and picture != '' ">
+                picture=#{picture},
+            </if>
+            <if test="level != null and level != '' ">
+                level=#{level},
+            </if>
+        </trim>
+        WHERE id=#{id}
+    </update>
+
+    <delete id="delGoodsEvaluate" parameterType="goodsEvaluate">
+        DELETE FROM goods_evaluate
+        WHERE id=#{id}
+    </delete>
+</mapper>

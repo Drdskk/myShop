@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="head.html"></div>
+<div class="page-content">
+    <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
+        <div class="layui-tab-content" style="overflow-y:auto;">
+            <div class="x-body">
+                <div class="layui-row">
+                    <a class="layui-btn" href="/address/addressForm"><i class="layui-icon"></i>添加</a>
+                </div>
+                <xblock style="height:30px;">
+                    <span>地址列表</span>
+                    <span class="x-right" style="line-height: 30px">
+                        共有数据：<span th:text="${addressList.size()}">0</span> 条
+                    </span>
+                </xblock>
+                <table class="layui-table">
+                    <thead>
+                        <tr>
+                            <th>收货人</th>
+                            <th>收货人电话</th>
+                            <th>姓名</th>
+                            <th>地址</th>
+                            <th>添加时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <div id="addressList" th:each="address : ${addressList}" >
+                            <tr>
+                                <td>
+                                    <span th:text="${address.consignee}"/>
+                                </td>
+                                <td>
+                                    <span th:text="${address.consigneeTel}"/>
+                                </td>
+                                <td>
+                                    <span th:text="${address.user.userName}"/>
+                                </td>
+                                <td>
+                                    <span th:text="${address.address}"/>
+                                </td>
+                                <td>
+                                    <span th:text="${address.createTime}"/>
+                                </td>
+                                <td class="td-manage">
+                                    <a th:attr="href='addressForm?id='+${address.id}" role="button" class="btn btn-info"><i class="layui-icon">
+                                        &#xe642;
+                                    </i></a>
+                                    <a href="javascript:;" role="button" class="btn btn-danger" th:onclick="address_del(this,[[${address.id}]])"><i class="layui-icon">
+                                        &#xe640;
+                                    </i></a>
+                                </td>
+                            </tr>
+                        </div>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function address_del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            layer.closeAll();
+            $.ajax({
+                url:"/address/delAddress?id="+id,
+                type:"post",
+                success:function (result) {
+                    if (result == 1){
+                        $(obj).parents("tr").remove();
+                        layer.msg('删除成功!', {icon: 1, time: 1000});
+                    }else {
+                        layer.msg('删除失败',{icon:1,time:1000});
+                    }
+                }
+            });
+        });
+    }
+</script>

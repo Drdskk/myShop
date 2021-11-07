@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="head.html"></div>
+<div class="page-content">
+    <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
+        <div class="layui-tab-content" style="overflow-y:auto;">
+            <div class="x-body">
+                <div class="layui-row">
+                    <form class="layui-form layui-col-md12 x-so" action="/smallType/getSmallTypes" method="post">
+                        <input type="text" name="typeName" placeholder="小类名" autocomplete="off" class="layui-input">
+                        <button class="layui-btn" lay-submit="" lay-filter="sreach" type="submit">
+                            <i class="layui-icon">
+                                &#xe615;
+                            </i>
+                        </button>
+                        <a class="layui-btn" href="/smallType/smallTypeForm"><i class="layui-icon"></i>添加</a>
+                    </form>
+                </div>
+                <xblock style="height:30px;">
+                    <span>小类列表</span>
+                    <span class="x-right" style="line-height: 30px">
+                        共有数据：<span th:text="${smallTypeList.size()}">0</span> 条
+                    </span>
+                </xblock>
+                <table class="layui-table">
+                    <thead>
+                        <tr>
+                            <th>小类名</th>
+                            <th>所属大类</th>
+                            <th>创建时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <div id="userList" th:each="smallType: ${smallTypeList}" >
+                            <tr>
+                                <td>
+                                    <span th:text="${smallType.typeName}"/>
+                                </td>
+                                <td>
+                                    <span th:text="${smallType.bigType.typeName}"/>
+                                </td>
+                                <td>
+                                    <span th:text="${smallType.createTime}"/>
+                                </td>
+                                <td class="td-manage">
+                                    <a th:attr="href='smallTypeForm?id='+${smallType.id}" role="button" class="btn btn-info"><i class="layui-icon">
+                                        &#xe642;
+                                    </i></a>
+                                    <a href="javascript:;" role="button" class="btn btn-danger" th:onclick="smallType_del(this,[[${smallType.id}]])"><i class="layui-icon">
+                                        &#xe640;
+                                    </i></a>
+                                </td>
+                            </tr>
+                        </div>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function smallType_del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            layer.closeAll();
+            $.ajax({
+                url:"/smallType/delSmallType?id="+id,
+                type:"post",
+                success:function (result) {
+                    if (result == 1){
+                        $(obj).parents("tr").remove();
+                        layer.msg('删除成功!', {icon: 1, time: 1000});
+                    }else {
+                        layer.msg('删除失败',{icon:1,time:1000});
+                    }
+                }
+            });
+        });
+    }
+</script>

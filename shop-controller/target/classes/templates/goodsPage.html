@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="head.html"></div>
+<div class="page-content">
+    <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
+        <div class="layui-tab-content" style="overflow-y:auto;">
+            <div class="x-body">
+                <div class="layui-row">
+                    <form class="layui-form layui-col-md12 x-so" action="/goods/getGoods" method="post">
+                        <input type="text" name="goodsName" placeholder="请输入商品名" autocomplete="off" class="layui-input">
+                        <button class="layui-btn" lay-submit="" lay-filter="sreach" type="submit">
+                            <i class="layui-icon">
+                                &#xe615;
+                            </i>
+                        </button>
+                        <a class="layui-btn" href="/goods/goodsForm"><i class="layui-icon"></i>添加</a>
+                    </form>
+                </div>
+                <xblock style="height:30px;">
+                    <span>商品列表</span>
+                    <span class="x-right" style="line-height: 30px">
+                        共有数据：<span th:text="${goodsList.size()}">0</span> 条
+                    </span>
+                </xblock>
+                <table class="layui-table">
+                    <thead>
+                        <tr>
+                            <th>商品名</th>
+                            <th>价格</th>
+                            <th>商品描述</th>
+                            <th>数量</th>
+                            <th>图片</th>
+                            <th>生产商</th>
+                            <th>小分类</th>
+                            <th>上架日期</th>
+                            <th>评分</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <div id="addressList" th:each="goods : ${goodsList}" >
+                            <tr>
+                                <td>
+                                    <span th:switch="${goods.state}">
+                                        <span th:case="0">
+                                            <a href="javascript:;" role="button" class="btn btn-danger"
+                                               th:text="${goods.goodsName}"
+                                               th:onclick="goods_UpAndDown([[${goods.id}]],[[${goods.state}]])"/>
+                                        </span>
+                                        <span th:case="1">
+                                            <a href="javascript:;" role="button" class="btn btn-danger"
+                                               th:text="${goods.goodsName}" style="text-decoration: line-through"
+                                               th:onclick="goods_UpAndDown([[${goods.id}]],[[${goods.state}]])"/>
+                                            <span style="float: right">商品已下架</span>
+                                        </span>
+                                    </span>
+                                </td>
+                                <td>
+                                    <span th:text="${goods.price}"/>
+                                </td>
+                                <td>
+                                    <span th:text="${goods.description}"/>
+                                </td>
+                                <td>
+                                    <span th:text="${goods.num}"/>
+                                </td>
+                                <td>
+                                    <a th:attr="href=${goods.picture}" role="button" class="btn btn-info">
+                                        <i class="layui-icon">&#xe64a;</i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <span th:text="${goods.manufacturer}"/>
+                                </td>
+                                <td>
+                                    <span th:text="${goods.smallType.typeName}"/>
+                                </td>
+                                <td>
+                                    <span th:text="${goods.createTime}"/>
+                                </td>
+                                <td>
+                                    <span th:text="${goods.score}"/>
+                                </td>
+                                <td class="td-manage">
+                                    <a th:attr="href='goodsPicForm?id='+${goods.id}" role="button" class="btn btn-info"><i class="layui-icon">
+                                        &#xe67c;
+                                    </i></a>
+                                    <a th:attr="href='goodsForm?id='+${goods.id}" role="button" class="btn btn-info"><i class="layui-icon">
+                                        &#xe642;
+                                    </i></a>
+                                    <a href="javascript:;" role="button" class="btn btn-danger" th:onclick="goods_del(this,[[${goods.id}]])"><i class="layui-icon">
+                                        &#xe640;
+                                    </i></a>
+                                </td>
+                            </tr>
+                        </div>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function goods_del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            layer.closeAll();
+            $.ajax({
+                url:"/goods/delGoods?id="+id,
+                type:"post",
+                success:function (result) {
+                    if (result == 1){
+                        $(obj).parents("tr").remove();
+                        layer.msg('删除成功!', {icon: 1, time: 1000});
+                    }else {
+                        layer.msg('删除失败',{icon:1,time:1000});
+                    }
+                }
+            });
+        });
+    }
+    function goods_UpAndDown(id,state) {
+        layer.confirm('确认要操作吗?',function () {
+            layer.closeAll();
+            $.ajax({
+                url:"/goods/setGoods?id="+id+"&state="+state,
+                type:"post",
+                success:function (result) {
+                    if (result == 1){
+                        alert("操作成功!")
+                        window.location.reload();
+                    }else {
+                        alert("操作失败!")
+                    }
+                }
+            })
+        })
+    }
+</script>
