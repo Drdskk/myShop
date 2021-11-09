@@ -52,7 +52,7 @@ public class SmallTypeController {
     /**
      * 添加小类
      * @param smallType  添加的小类信息
-     * @return  返回值为添加操作是否成功 0 or 1
+     * @return  返回值为添加操作是否成功 isZero
      */
     @RequestMapping("/addSmallType")
     @ResponseBody
@@ -63,7 +63,7 @@ public class SmallTypeController {
     /**
      * 删除小类
      * @param smallType 需要删除小类的信息
-     * @return  返回值为删除操作是否成功 0 or 1
+     * @return  返回值为删除操作是否成功 isZero
      */
     @RequestMapping("/delSmallType")
     @ResponseBody

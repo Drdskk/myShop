@@ -18,7 +18,17 @@
 </resultMap>
 
     <select id="getAddress" parameterType="address" resultMap="AddressMapper">
-        SELECT * FROM address a, user u
+        SELECT *
+        FROM address a,(select user.id,user.user_name
+                        from user
+                        <where>
+                            <if test="user !=null">
+                                <if test="user.userName != null and user.userName != ''">
+                                    user.user_name like CONCAT('%',#{user.userName},'%')
+                                </if>
+                            </if>
+                        </where>
+                         ) u
         <where>
             <if test="id != null and id != '' ">
                 AND a.id=#{id}
@@ -42,12 +52,12 @@
         </where>
     </select>
 
-    <insert id="addAddress" parameterType="address">
+<!--    <insert id="addAddress" parameterType="address">
         INSERT INTO address
         VALUES (#{id},#{consignee},#{consigneeTel},#{address},#{userId},#{createTime},'0')
-    </insert>
+    </insert>-->
 
-    <update id="setAddress" parameterType="address">
+<!--    <update id="setAddress" parameterType="address">
         UPDATE address
         <trim prefix="set" suffixOverrides=",">
             <if test="consignee != null and consignee != '' ">
@@ -67,13 +77,13 @@
             </if>
         </trim>
         WHERE id=#{id}
-    </update>
+    </update>-->
 
-    <delete id="delAddress" parameterType="address">
+<!--    <delete id="delAddress" parameterType="address">
         UPDATE address
         <trim prefix="set" suffixOverrides=",">
             del_flag='1',
         </trim>
         WHERE id=#{id}
-    </delete>
+    </delete>-->
 </mapper>

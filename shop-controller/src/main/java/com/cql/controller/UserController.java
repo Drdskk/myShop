@@ -71,7 +71,7 @@ public class UserController {
     /**
      * 登录
      * @param user
-     * @return  返回值为是否有该用户 0 or 1
+     * @return  返回值为是否有该用户 isZero
      */
     @RequestMapping("/getUser")
     @ResponseBody
@@ -82,7 +82,7 @@ public class UserController {
     /**
      * 添加用户
      * @param user  添加的用户信息
-     * @return  返回值为添加操作是否成功 0 or 1
+     * @return  返回值为添加操作是否成功 isZero
      */
     @RequestMapping("/addUser")
     @ResponseBody
@@ -93,7 +93,7 @@ public class UserController {
     /**
      * 删除用户
      * @param user  需要删除用户的信息
-     * @return  返回值为删除操作是否成功 0 or 1
+     * @return  返回值为删除操作是否成功 isZero
      */
     @RequestMapping("/delUser")
     @ResponseBody

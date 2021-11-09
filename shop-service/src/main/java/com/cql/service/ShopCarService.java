@@ -11,4 +11,5 @@ public interface ShopCarService {
     List<ShopCar> getShopCars(ShopCar shopCar);
     Integer addShopCar(ShopCar shopCar);
     Integer delShopCar(ShopCar shopCar);
+    Integer shopCarToOrd(ShopCar shopCar);
 }

@@ -25,16 +25,22 @@
             <if test="id != null and id != '' ">
                 AND sc.id=#{id}
             </if>
+            <if test="goodsId != null and goodsId != ''">
+                AND goods_id=#{goodsId}
+            </if>
+            <if test="userId != null and userId != ''">
+                AND user_id=#{userId}
+            </if>
             AND sc.del_flag='0' AND sc.goods_id=g.id AND sc.user_id=u.id
         </where>
     </select>
 
-    <insert id="addShopCar" parameterType="shopCar">
+<!--    <insert id="addShopCar" parameterType="shopCar">
         INSERT INTO shop_car(id,goods_id,num,del_flag)
         VALUES (#{id},#{goodsId},#{num},'0')
-    </insert>
+    </insert>-->
 
-    <update id="setShopCar" parameterType="shopCar">
+<!--    <update id="setShopCar" parameterType="shopCar">
         UPDATE shop_car
         <trim prefix="set" suffixOverrides=",">
             <if test="num != null and num != '' ">
@@ -42,13 +48,13 @@
             </if>
         </trim>
         WHERE id=#{id}
-    </update>
+    </update>-->
 
-    <delete id="delShopCar" parameterType="shopCar">
+<!--    <delete id="delShopCar" parameterType="shopCar">
         UPDATE shop_car
         <trim prefix="set" suffixOverrides=",">
             del_flag='1',
         </trim>
         WHERE id=#{id}
-    </delete>
+    </delete>-->
 </mapper>

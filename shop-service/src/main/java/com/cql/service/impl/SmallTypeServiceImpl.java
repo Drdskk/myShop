@@ -27,6 +27,9 @@ public class SmallTypeServiceImpl implements SmallTypeService {
      * @return  返回结果——SmallType对象的List集合
      */
     @Override
+//    public List<SmallType> getSmallTypes(SmallType smallType) {
+//        return smallTypeMapper.getSmallTypes(smallType);
+//    }
     public List<SmallType> getSmallTypes(SmallType smallType) {
         return smallTypeMapper.getSmallTypes(smallType);
     }
@@ -34,18 +37,28 @@ public class SmallTypeServiceImpl implements SmallTypeService {
     /**
      * 插入/修改操作
      * @param smallType
-     * @return  返回结果操作是否成功——0 or 1
+     * @return  返回结果操作是否成功——isZero
      */
     @Override
+//    public Integer addSmallType(SmallType smallType) {
+//        //根据id是否为空判断是插入还是修改操作
+//        if(smallType.getId().isEmpty()){
+//            //添加操作
+//            //设置id,创建时间
+//            return smallTypeMapper.addSmallType(smallType.setId(MyUUID.getUUID()).setCreateTime(MyCurrentTime.getTime()));
+//        }else{
+//            //修改操作
+//            return smallTypeMapper.setSmallType(smallType);
+//        }
+//    }
     public Integer addSmallType(SmallType smallType) {
-        //根据id是否为空判断是插入还是修改操作
         if(smallType.getId().isEmpty()){
-            //添加操作
-            //设置id,创建时间
-            return smallTypeMapper.addSmallType(smallType.setId(MyUUID.getUUID()).setCreateTime(MyCurrentTime.getTime()));
+            return smallTypeMapper.insert(smallType
+                    .setId(MyUUID.getUUID())
+                    .setCreateTime(MyCurrentTime.getTime())
+                    .setDelFlag("0"));
         }else{
-            //修改操作
-            return smallTypeMapper.setSmallType(smallType);
+            return smallTypeMapper.updateById(smallType);
         }
     }
 
@@ -53,14 +66,26 @@ public class SmallTypeServiceImpl implements SmallTypeService {
     /**
      * 删除操作
      * @param smallType
-     * @return  返回删除操作结果 0 or 1
+     * @return  返回删除操作结果 isZero
      */
     @Override
+//    public Integer delSmallType(SmallType smallType) {
+//        List<Goods> goodsList=goodsMapper.getGoods(new Goods().setSmallTypeId(smallType.getId()));
+//        for(Goods goods:goodsList){
+//            goodsMapper.delGoods(goods);
+//        }
+//        return smallTypeMapper.delSmallType(smallType);
+//    }
     public Integer delSmallType(SmallType smallType) {
         List<Goods> goodsList=goodsMapper.getGoods(new Goods().setSmallTypeId(smallType.getId()));
-        for(Goods goods:goodsList){
-            goodsMapper.delGoods(goods);
+//        for(Goods goods:goodsList){
+//            goodsMapper.updateById(goods.setDelFlag("1"));
+//        }
+//        return smallTypeMapper.updateById(smallType);
+        //判断小类下是否还有商品，有就不删
+        if(goodsList.size()==0){
+            return smallTypeMapper.updateById(smallType.setDelFlag("1"));
         }
-        return smallTypeMapper.delSmallType(smallType);
+        return 0;
     }
 }

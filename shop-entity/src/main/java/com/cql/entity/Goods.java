@@ -1,8 +1,20 @@
 package com.cql.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
+
 import java.util.List;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Accessors(chain = true)
 public class Goods {
+    @TableId("id")
     private String id;
     private String goodsName;
     private String price;
@@ -15,123 +27,124 @@ public class Goods {
     private String delFlag;
     private String state;
     private String score;
+    @TableField(exist = false)
     private SmallType smallType;
 
-    public String getId() {
-        return id;
-    }
-
-    public Goods setId(String id) {
-        this.id = id;
-        return this;
-    }
-
-    public String getGoodsName() {
-        return goodsName;
-    }
-
-    public Goods setGoodsName(String goodsName) {
-        this.goodsName = goodsName;
-        return this;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public Goods setPrice(String price) {
-        this.price = price;
-        return this;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public Goods setDescription(String description) {
-        this.description = description;
-        return this;
-    }
-
-    public String getNum() {
-        return num;
-    }
-
-    public Goods setNum(String num) {
-        this.num = num;
-        return this;
-    }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public Goods setPicture(String picture) {
-        this.picture = picture;
-        return this;
-    }
-
-    public String getManufacturer() {
-        return manufacturer;
-    }
-
-    public Goods setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
-        return this;
-    }
-
-    public String getSmallTypeId() {
-        return smallTypeId;
-    }
-
-    public Goods setSmallTypeId(String smallTypeId) {
-        this.smallTypeId = smallTypeId;
-        return this;
-    }
-
-
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public Goods setCreateTime(String createTime) {
-        this.createTime = createTime;
-        return this;
-    }
-
-    public String getDelFlag() {
-        return delFlag;
-    }
-
-    public Goods setDelFlag(String delFlag) {
-        this.delFlag = delFlag;
-        return this;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public Goods setState(String state) {
-        this.state = state;
-        return this;
-    }
-
-    public String getScore() {
-        return score;
-    }
-
-    public Goods setScore(String score) {
-        this.score = score;
-        return this;
-    }
-
-    public SmallType getSmallType() {
-        return smallType;
-    }
-
-    public Goods setSmallType(SmallType smallType) {
-        this.smallType = smallType;
-        return this;
-    }
+//    public String getId() {
+//        return id;
+//    }
+//
+//    public Goods setId(String id) {
+//        this.id = id;
+//        return this;
+//    }
+//
+//    public String getGoodsName() {
+//        return goodsName;
+//    }
+//
+//    public Goods setGoodsName(String goodsName) {
+//        this.goodsName = goodsName;
+//        return this;
+//    }
+//
+//    public String getPrice() {
+//        return price;
+//    }
+//
+//    public Goods setPrice(String price) {
+//        this.price = price;
+//        return this;
+//    }
+//
+//    public String getDescription() {
+//        return description;
+//    }
+//
+//    public Goods setDescription(String description) {
+//        this.description = description;
+//        return this;
+//    }
+//
+//    public String getNum() {
+//        return num;
+//    }
+//
+//    public Goods setNum(String num) {
+//        this.num = num;
+//        return this;
+//    }
+//
+//    public String getPicture() {
+//        return picture;
+//    }
+//
+//    public Goods setPicture(String picture) {
+//        this.picture = picture;
+//        return this;
+//    }
+//
+//    public String getManufacturer() {
+//        return manufacturer;
+//    }
+//
+//    public Goods setManufacturer(String manufacturer) {
+//        this.manufacturer = manufacturer;
+//        return this;
+//    }
+//
+//    public String getSmallTypeId() {
+//        return smallTypeId;
+//    }
+//
+//    public Goods setSmallTypeId(String smallTypeId) {
+//        this.smallTypeId = smallTypeId;
+//        return this;
+//    }
+//
+//
+//    public String getCreateTime() {
+//        return createTime;
+//    }
+//
+//    public Goods setCreateTime(String createTime) {
+//        this.createTime = createTime;
+//        return this;
+//    }
+//
+//    public String getDelFlag() {
+//        return delFlag;
+//    }
+//
+//    public Goods setDelFlag(String delFlag) {
+//        this.delFlag = delFlag;
+//        return this;
+//    }
+//
+//    public String getState() {
+//        return state;
+//    }
+//
+//    public Goods setState(String state) {
+//        this.state = state;
+//        return this;
+//    }
+//
+//    public String getScore() {
+//        return score;
+//    }
+//
+//    public Goods setScore(String score) {
+//        this.score = score;
+//        return this;
+//    }
+//
+//    public SmallType getSmallType() {
+//        return smallType;
+//    }
+//
+//    public Goods setSmallType(SmallType smallType) {
+//        this.smallType = smallType;
+//        return this;
+//    }
 }

@@ -69,7 +69,7 @@ public class GoodsController {
     /**
      * 添加商品
      * @param goods  添加的商品信息
-     * @return  返回值为添加操作是否成功 0 or 1
+     * @return  返回值为添加操作是否成功 isZero
      */
     @RequestMapping("/addGoods")
     @ResponseBody
@@ -80,7 +80,7 @@ public class GoodsController {
     /**
      * 上下架商品
      * @param goods 需要修改商品的信息
-     * @return  返回值为上下架操作是否成功 0 or 1
+     * @return  返回值为上下架操作是否成功 isZero
      */
     @RequestMapping("/setGoods")
     @ResponseBody
@@ -91,7 +91,7 @@ public class GoodsController {
     /**
      * 删除商品
      * @param goods 需要删除商品的信息
-     * @return  返回值为删除操作是否成功 0 or 1
+     * @return  返回值为删除操作是否成功 isZero
      */
     @RequestMapping("/delGoods")
     @ResponseBody

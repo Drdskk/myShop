@@ -48,7 +48,7 @@ function check_userAdd() {
         type:"POST",
         data:$("#userAddForm").serialize(),
         success:function (result) {
-            if(result == 1){
+            if(result != 0){
                 alert("操作成功");
                 window.location.href="getUsers";
             }else {
@@ -65,7 +65,7 @@ function check_addressAdd() {
         type:"POST",
         data:$("#addressAddForm").serialize(),
         success:function (result) {
-            if(result == 1){
+            if(result != 0){
                 alert("操作成功");
                 window.location.href="getAddress";
             }else {
@@ -82,7 +82,7 @@ function check_goodsAdd() {
         type:"POST",
         data:$("#goodsAddForm").serialize(),
         success:function (result) {
-            if(result == 1){
+            if(result != 0){
                 alert("操作成功");
                 window.location.href="getGoods";
             }else {
@@ -101,7 +101,7 @@ function check_goodsPicAdd() {
         processData:false,
         contentType:false,
         success:function (result) {
-            if(result == 1){
+            if(result != 0){
                 alert("操作成功");
                 window.location.href="getGoods";
             }else {
@@ -118,7 +118,7 @@ function check_bigTypeAdd() {
         type:"POST",
         data:$("#bigTypeAddForm").serialize(),
         success:function (result) {
-            if(result == 1){
+            if(result != 0){
                 alert("操作成功");
                 window.location.href="getBigTypes";
             }else {
@@ -135,7 +135,7 @@ function check_smallTypeAdd() {
         type:"POST",
         data:$("#smallTypeAddForm").serialize(),
         success:function (result) {
-            if(result == 1){
+            if(result != 0){
                 alert("操作成功");
                 window.location.href="getSmallTypes";
             }else {
@@ -151,7 +151,7 @@ function check_shopCarAdd() {
         type:"POST",
         data:$("#shopCarAddForm").serialize(),
         success:function (result) {
-            if(result == 1){
+            if(result != 0){
                 alert("操作成功");
                 window.location.href="getShopCars";
             }else {
@@ -167,9 +167,25 @@ function check_ordAdd() {
         type:"POST",
         data:$("#ordAddForm").serialize(),
         success:function (result) {
-            if(result == 1){
+            if(result != 0){
                 alert("操作成功");
                 window.location.href="getOrds";
+            }else {
+                alert("操作失败");
+            }
+        }
+    });
+}
+
+function check_goodsEvaluateAdd() {
+    $.ajax({
+        url:"/goodsEvaluate/addGoodsEvaluate",
+        type:"POST",
+        data:$("#goodsEvaluateAddForm").serialize(),
+        success:function (result) {
+            if(result != 0){
+                alert("操作成功");
+                window.location.href="getGoodsEvaluates";
             }else {
                 alert("操作失败");
             }
@@ -212,6 +228,10 @@ $(function() {
     })
     $("#ordAdd").click(function() {
         check_ordAdd();
+        return false;
+    })
+    $("#goodsEvaluateAdd").click(function() {
+        check_goodsEvaluateAdd();
         return false;
     })
     $('.message a').click(function() {

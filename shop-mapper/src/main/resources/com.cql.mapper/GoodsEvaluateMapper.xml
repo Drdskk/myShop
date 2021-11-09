@@ -41,15 +41,16 @@
             <if test="level != null and level != '' ">
                 AND ge.level=#{level}
             </if>
+            AND ge.user_id=u.id AND ge.goods_id=g.id
         </where>
     </select>
 
-    <insert id="addGoodsEvaluate" parameterType="goodsEvaluate">
+<!--    <insert id="addGoodsEvaluate" parameterType="goodsEvaluate">
         INSERT INTO goods_evaluate
         VALUES (#{id},#{goodsId},#{userId},#{content},#{picture},#{level})
-    </insert>
+    </insert>-->
 
-    <update id="setGoodsEvaluate" parameterType="goodsEvaluate">
+<!--    <update id="setGoodsEvaluate" parameterType="goodsEvaluate">
         UPDATE goods_evaluate
         <trim prefix="set" suffixOverrides=",">
             <if test="goodsId != null and goodsId != '' ">
@@ -69,10 +70,10 @@
             </if>
         </trim>
         WHERE id=#{id}
-    </update>
+    </update>-->
 
-    <delete id="delGoodsEvaluate" parameterType="goodsEvaluate">
+<!--    <delete id="delGoodsEvaluate" parameterType="goodsEvaluate">
         DELETE FROM goods_evaluate
         WHERE id=#{id}
-    </delete>
+    </delete>-->
 </mapper>

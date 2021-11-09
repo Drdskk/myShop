@@ -15,6 +15,7 @@
                                 &#xe615;
                             </i>
                         </button>
+                        <a class="layui-btn" href="/shopCar/shopCarForm1"><i class="layui-icon"></i>添加</a>
                     </form>
                 </div>
                 <xblock style="height:30px;">
@@ -45,11 +46,14 @@
                                     <span th:text="${shopCar.num}"/>
                                 </td>
                                 <td class="td-manage">
-                                    <a th:attr="href='shopCarForm?id='+${shopCar.id}" role="button" class="btn btn-info"><i class="layui-icon">
+                                    <a th:attr="href='shopCarForm2?id='+${shopCar.id}" role="button" class="btn btn-info"><i class="layui-icon">
                                         &#xe642;
                                     </i></a>
                                     <a href="javascript:;" role="button" class="btn btn-danger" th:onclick="shopCar_del(this,[[${shopCar.id}]])"><i class="layui-icon">
                                         &#xe640;
+                                    </i></a>
+                                    <a href="javascript:;" role="button" class="btn btn-danger" th:onclick="shopcar_ord(this,[[${shopCar.id}]])"><i class="layui-icon">
+                                        &#xe63c;
                                     </i></a>
                                 </td>
                             </tr>
@@ -73,6 +77,23 @@
                         layer.msg('移除成功!', {icon: 1, time: 1000});
                     }else {
                         layer.msg('移除失败',{icon:1,time:1000});
+                    }
+                }
+            });
+        });
+    }
+    function shopcar_ord(obj,id){
+        layer.confirm('确认要购买吗？',function(index){
+            layer.closeAll();
+            $.ajax({
+                url:"/shopCar/shopCarToOrd?id="+id,
+                type:"post",
+                success:function (result) {
+                    if (result == 1){
+                        $(obj).parents("tr").remove();
+                        layer.msg('购买成功!', {icon: 1, time: 1000});
+                    }else {
+                        layer.msg('购买失败',{icon:2,time:1000});
                     }
                 }
             });

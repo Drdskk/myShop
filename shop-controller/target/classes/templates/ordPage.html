@@ -15,6 +15,7 @@
                                 &#xe615;
                             </i>
                         </button>
+                        <a class="layui-btn" href="/ord/ordForm1"><i class="layui-icon"></i>添加</a>
                     </form>
                 </div>
                 <xblock style="height:30px;">
@@ -28,6 +29,7 @@
                         <tr>
                             <th>商品名</th>
                             <th>收货信息</th>
+                            <th>用户名</th>
                             <th>数量</th>
                             <th>总价格</th>
                             <th>订单状态</th>
@@ -46,13 +48,22 @@
                                     <span th:text="${ord.address.consignee}+'-'+${ord.address.consigneeTel}+'-'+${ord.address.address}"/>
                                 </td>
                                 <td>
+                                    <span th:text="${ord.user.userName}"/>
+                                </td>
+                                <td>
                                     <span th:text="${ord.num}"/>
                                 </td>
                                 <td>
                                     <span th:text="${ord.price}"/>
                                 </td>
                                 <td>
-                                    <span th:text="${ord.ordState}"/>
+                                    <span th:if="${ord.ordState=='0'}">未付款</span>
+                                    <span th:if="${ord.ordState=='1'}">已支付</span>
+                                    <span th:if="${ord.ordState=='2'}">已发货</span>
+                                    <span th:if="${ord.ordState=='3'}">已到货</span>
+                                    <span th:if="${ord.ordState=='4'}">已签收</span>
+                                    <span th:if="${ord.ordState=='5'}">结束订单</span>
+                                    <span th:if="${ord.ordState=='6'}">退货中</span>
                                 </td>
                                 <td>
                                     <span th:text="${ord.createTime}"/>
@@ -61,7 +72,7 @@
                                     <span th:text="${ord.ordNo}"/>
                                 </td>
                                 <td class="td-manage">
-                                    <a th:attr="href='ordForm?id='+${ord.id}" role="button" class="btn btn-info"><i class="layui-icon">
+                                    <a th:attr="href='ordForm2?id='+${ord.id}" role="button" class="btn btn-info"><i class="layui-icon">
                                         &#xe642;
                                     </i></a>
                                     <a href="javascript:;" role="button" class="btn btn-danger" th:onclick="ord_del(this,[[${ord.id}]])"><i class="layui-icon">
@@ -88,7 +99,7 @@
                         $(obj).parents("tr").remove();
                         layer.msg('删除成功!', {icon: 1, time: 1000});
                     }else {
-                        layer.msg('删除失败',{icon:1,time:1000});
+                        layer.msg('删除失败',{icon:2,time:1000});
                     }
                 }
             });

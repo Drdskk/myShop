@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="head.html"></div>
+<div class="page-content">
+    <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
+        <div class="layui-tab-content" style="overflow-y:auto;">
+            <div class="x-body">
+                <div class="layui-fluid">
+                    <div class="layui-card">
+                        <div class="layui-card-header">添加</div>
+                        <div class="layui-card-body" style="padding: 15px;">
+                            <form class="layui-form" method="post"
+                                  lay-filter="component-form-group" id="ordAddForm">
+                                <input type="hidden" name="id" th:value="${ord.id}">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">商品</label>
+                                    <div class="layui-input-block">
+                                        <select name="goodsId">
+                                            <option disabled selected>--请选择--</option>
+                                            <span th:each="goods:${goodsList}">
+                                                <option th:value="${goods.id}" th:text="${goods.goodsName}"></option>
+                                            </span>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">用户</label>
+                                    <div class="layui-input-block">
+                                        <select name="userId">
+                                            <option disabled selected>--请选择--</option>
+                                            <span th:each="user:${userList}">
+                                                <option th:value="${user.id}" th:text="${user.userName}"></option>
+                                            </span>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">数量</label>
+                                    <div class="layui-input-block">
+                                        <input type="tel" name="num" lay-verify="required" placeholder="数量"
+                                               autocomplete="off" class="layui-input">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">地址</label>
+                                    <div class="layui-input-block">
+                                        <select name="addressId">
+                                            <option disabled selected>--请选择--</option>
+                                            <span th:each="address:${addressList}">
+                                                <option th:value="${address.id}" th:text="${address.address}"></option>
+                                            </span>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">订单状态</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" name="ordState" lay-verify="required" placeholder="订单状态"
+                                               autocomplete="off" class="layui-input" th:attr="value=${ord.ordState}">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item layui-layout-admin">
+                                    <div class="layui-input-block">
+                                        <div class="layui-footer" style="left: 0;">
+                                            <button id="ordAdd" class="layui-btn" lay-submit="" lay-filter="component-form-demo1"
+                                                    type="button">立即提交
+                                            </button>
+                                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

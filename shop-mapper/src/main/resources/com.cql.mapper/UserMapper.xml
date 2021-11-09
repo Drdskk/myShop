@@ -22,7 +22,7 @@
                 AND id=#{id}
             </if>
             <if test="userName != null and userName != '' ">
-                AND user_name=#{userName}
+                AND user_name LIKE CONCAT('%',#{userName},'%')
             </if>
             <if test="password != null and password != '' ">
                 AND password=#{password}
@@ -59,12 +59,12 @@
         </where>
     </select>
 
-    <insert id="addUser" parameterType="user">
+<!--    <insert id="addUser" parameterType="user">
         INSERT INTO user(id,user_name,password,real_name,id_card,sex,tel,create_time,del_flag)
         VALUES (#{id},#{userName},#{password},#{realName},#{idCard},#{sex},#{tel},#{createTime},'0')
-    </insert>
+    </insert>-->
 
-    <update id="setUser" parameterType="user">
+<!--    <update id="setUser" parameterType="user">
         UPDATE user
         <trim prefix="set" suffixOverrides=",">
             <if test="userName != null and userName != '' ">
@@ -90,13 +90,13 @@
             </if>
         </trim>
         WHERE id=#{id}
-    </update>
+    </update>-->
 
-    <delete id="delUser" parameterType="user">
+<!--    <delete id="delUser" parameterType="user">
         UPDATE user
         <trim prefix="set" suffixOverrides=",">
             del_flag='1',
         </trim>
         WHERE id=#{id}
-    </delete>
+    </delete>-->
 </mapper>

@@ -65,12 +65,12 @@
         </where>
     </select>
 
-    <insert id="addOrd" parameterType="ord">
+<!--    <insert id="addOrd" parameterType="ord">
         INSERT INTO ord
         VALUES (#{id},#{goodsId},#{userId},#{addressId},#{num},#{price},#{ordNo},#{ordState},#{createTime},'0')
-    </insert>
+    </insert>-->
 
-    <update id="setOrd" parameterType="ord">
+<!--    <update id="setOrd" parameterType="ord">
         UPDATE ord
         <trim prefix="set" suffixOverrides=",">
             <if test="goodsId != null and goodsId != '' ">
@@ -99,13 +99,13 @@
             </if>
         </trim>
         WHERE id=#{id}
-    </update>
+    </update>-->
 
-    <delete id="delOrd" parameterType="ord">
+<!--    <delete id="delOrd" parameterType="ord">
         UPDATE ord
         <trim prefix="set" suffixOverrides=",">
             del_flag='1',
         </trim>
         WHERE id=#{id}
-    </delete>
+    </delete>-->
 </mapper>

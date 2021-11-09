@@ -15,7 +15,7 @@
         <result column="create_time" property="createTime"/>
         <result column="del_flag" property="delFlag"/>
         <result column="state" property="state"/>
-        <result column="avgLevel" property="score"/>
+        <result column="level" property="score"/>
         <association property="smallType" javaType="smallType">
             <id column="id" property="id"/>
             <result column="type_name" property="typeName"/>
@@ -23,13 +23,13 @@
     </resultMap>
 
     <select id="getGoods" parameterType="goods" resultMap="GoodsMapper">
-        SELECT *,AVG(ge.level) avgLevel FROM goods g,small_type st,goods_evaluate ge
+        SELECT * FROM goods g,small_type st,goods_evaluate ge
         <where>
             <if test="id != null and id != '' ">
                 AND g.id=#{id}
             </if>
             <if test="goodsName != null and goodsName != '' ">
-                AND g.goods_name=#{goodsName}
+                AND g.goods_name LIKE CONCAT('%',#{goodsName},'%')
             </if>
             <if test="price != null and price != '' ">
                 AND g.price=#{price}
@@ -58,16 +58,16 @@
             <if test="score != null and score != '' ">
                 AND g.score=#{score}
             </if>
-            AND g.del_flag='0' AND g.small_type_id=st.id AND g.id=ge.goods_id
+            AND g.del_flag='0' AND g.small_type_id=st.id
         </where>
     </select>
 
-    <insert id="addGoods" parameterType="goods">
+<!--    <insert id="addGoods" parameterType="goods">
         INSERT INTO goods
         VALUES (#{id},#{goodsName},#{price},#{description},#{num},#{picture},#{manufacturer},#{smallTypeId},#{createTime},'0',#{state},#{score})
-    </insert>
+    </insert>-->
 
-    <update id="setGoods" parameterType="goods">
+<!--    <update id="setGoods" parameterType="goods">
         UPDATE goods
         <trim prefix="set" suffixOverrides=",">
             <if test="goodsName != null and goodsName != '' ">
@@ -102,29 +102,29 @@
             </if>
         </trim>
         WHERE id=#{id}
-    </update>
+    </update>-->
 
-    <delete id="upGoods" parameterType="goods">
+<!--    <delete id="upGoods" parameterType="goods">
         UPDATE goods
         <trim prefix="set" suffixOverrides=",">
             state='0',
         </trim>
         WHERE id=#{id}
-    </delete>
+    </delete>-->
 
-    <delete id="downGoods" parameterType="goods">
+<!--    <delete id="downGoods" parameterType="goods">
         UPDATE goods
         <trim prefix="set" suffixOverrides=",">
             state='1',
         </trim>
         WHERE id=#{id}
-    </delete>
+    </delete>-->
 
-    <delete id="delGoods" parameterType="goods">
+<!--    <delete id="delGoods" parameterType="goods">
         UPDATE goods
         <trim prefix="set" suffixOverrides=",">
             del_flag='1',
         </trim>
         WHERE id=#{id}
-    </delete>
+    </delete>-->
 </mapper>

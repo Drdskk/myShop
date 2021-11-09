@@ -7,7 +7,15 @@
         <div class="layui-tab-content" style="overflow-y:auto;">
             <div class="x-body">
                 <div class="layui-row">
-                    <a class="layui-btn" href="/address/addressForm"><i class="layui-icon"></i>添加</a>
+                    <form class="layui-form layui-col-md12 x-so" action="/address/getAddress" method="post">
+                        <input type="text" name="user.userName" placeholder="用户名" autocomplete="off" class="layui-input">
+                        <button class="layui-btn" lay-submit="" lay-filter="sreach" type="submit">
+                            <i class="layui-icon">
+                                &#xe615;
+                            </i>
+                        </button>
+                        <a class="layui-btn" href="/address/addressForm"><i class="layui-icon"></i>添加</a>
+                    </form>
                 </div>
                 <xblock style="height:30px;">
                     <span>地址列表</span>
@@ -72,7 +80,7 @@
                         $(obj).parents("tr").remove();
                         layer.msg('删除成功!', {icon: 1, time: 1000});
                     }else {
-                        layer.msg('删除失败',{icon:1,time:1000});
+                        layer.msg('删除失败',{icon:2,time:1000});
                     }
                 }
             });

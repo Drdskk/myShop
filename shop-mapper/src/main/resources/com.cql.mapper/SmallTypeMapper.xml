@@ -25,7 +25,7 @@
                 AND st.big_type_id=#{bigTypeId}
             </if>
             <if test="typeName != null and typeName != '' ">
-                AND st.type_name=#{typeName}
+                AND st.type_name LIKE CONCAT('%',#{typeName},'%')
             </if>
             <if test="createTime != null and createTime != '' ">
                 AND st.create_time=#{createTime}
@@ -34,12 +34,12 @@
         </where>
     </select>
 
-    <insert id="addSmallType" parameterType="smallType">
+<!--    <insert id="addSmallType" parameterType="smallType">
         INSERT INTO small_type
         VALUES (#{id},#{bigTypeId},#{typeName},#{createTime},'0')
-    </insert>
+    </insert>-->
 
-    <update id="setSmallType" parameterType="smallType">
+<!--    <update id="setSmallType" parameterType="smallType">
         UPDATE small_type
         <trim prefix="set" suffixOverrides=",">
             <if test="bigTypeId != null and bigTypeId != '' ">
@@ -53,13 +53,13 @@
             </if>
         </trim>
         WHERE id=#{id}
-    </update>
+    </update>-->
 
-    <delete id="delSmallType" parameterType="smallType">
+<!--    <delete id="delSmallType" parameterType="smallType">
         UPDATE small_type
         <trim prefix="set" suffixOverrides=",">
             del_flag='1',
         </trim>
         WHERE id=#{id}
-    </delete>
+    </delete>-->
 </mapper>

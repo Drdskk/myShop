@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface GoodsEvaluateService {
     List<GoodsEvaluate> getGoodsEvaluates(GoodsEvaluate goodsEvaluate);
+    Integer addGoodsEvaluate(GoodsEvaluate goodsEvaluate);
     Integer delGoodsEvaluate(GoodsEvaluate goodsEvaluate);
 }

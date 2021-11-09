@@ -64,7 +64,7 @@ public class AddressController {
     /**
      * 删除地址
      * @param address 需要删除地址的信息
-     * @return  返回值为删除操作是否成功 0 or 1
+     * @return  返回值为删除操作是否成功 isZero
      */
     @RequestMapping("/delAddress")
     @ResponseBody

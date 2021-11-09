@@ -1,0 +1,13 @@
+com\cql\entity\Ord.class
+com\cql\config\MyUUID.class
+com\cql\impl\MyInterceptor.class
+com\cql\config\MyWebMvcConfig.class
+com\cql\config\MyCurrentTime.class
+com\cql\entity\GoodsEvaluate.class
+com\cql\entity\BigType.class
+com\cql\entity\Goods.class
+com\cql\entity\SmallType.class
+com\cql\entity\ShopCar.class
+com\cql\entity\Address.class
+com\cql\config\MyFileUpload.class
+com\cql\entity\User.class

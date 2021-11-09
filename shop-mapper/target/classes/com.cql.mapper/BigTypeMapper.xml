@@ -17,7 +17,7 @@
                 AND id=#{id}
             </if>
             <if test="typeName != null and typeName != '' ">
-                AND type_name=#{typeName}
+                AND type_name LIKE CONCAT('%',#{typeName},'%')
             </if>
             <if test="createTime != null and createTime != '' ">
                 AND create_time=#{createTime}
@@ -26,29 +26,29 @@
         </where>
     </select>
 
-    <insert id="addBigType" parameterType="bigType">
-        INSERT INTO big_type
-        VALUES (#{id},#{typeName},#{createTime},'0')
-    </insert>
+<!--    <insert id="addBigType" parameterType="bigType">-->
+<!--        INSERT INTO big_type-->
+<!--        VALUES (#{id},#{typeName},#{createTime},'0')-->
+<!--    </insert>-->
 
-    <update id="setBigType" parameterType="bigType">
-        UPDATE big_type
-        <trim prefix="set" suffixOverrides=",">
-            <if test="typeName != null and typeName != '' ">
-                type_name=#{typeName},
-            </if>
-            <if test="createTime != null and createTime != '' ">
-                create_time=#{createTime},
-            </if>
-        </trim>
-        WHERE id=#{id}
-    </update>
+<!--    <update id="setBigType" parameterType="bigType">-->
+<!--        UPDATE big_type-->
+<!--        <trim prefix="set" suffixOverrides=",">-->
+<!--            <if test="typeName != null and typeName != '' ">-->
+<!--                type_name=#{typeName},-->
+<!--            </if>-->
+<!--            <if test="createTime != null and createTime != '' ">-->
+<!--                create_time=#{createTime},-->
+<!--            </if>-->
+<!--        </trim>-->
+<!--        WHERE id=#{id}-->
+<!--    </update>-->
 
-    <delete id="delBigType" parameterType="bigType">
-        UPDATE big_type
-        <trim prefix="set" suffixOverrides=",">
-            del_flag='1',
-        </trim>
-        WHERE id=#{id}
-    </delete>
+<!--    <delete id="delBigType" parameterType="bigType">-->
+<!--        UPDATE big_type-->
+<!--        <trim prefix="set" suffixOverrides=",">-->
+<!--            del_flag='1',-->
+<!--        </trim>-->
+<!--        WHERE id=#{id}-->
+<!--    </delete>-->
 </mapper>

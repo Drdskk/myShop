@@ -48,7 +48,7 @@ public class BigTypeController {
     /**
      * 添加大类
      * @param bigType  添加的大类信息
-     * @return  返回值为添加操作是否成功 0 or 1
+     * @return  返回值为添加操作是否成功 isZero
      */
     @RequestMapping("/addBigType")
     @ResponseBody
@@ -59,7 +59,7 @@ public class BigTypeController {
     /**
      * 删除大类
      * @param bigType 需要删除大类的信息
-     * @return  返回值为删除操作是否成功 0 or 1
+     * @return  返回值为删除操作是否成功 isZero
      */
     @RequestMapping("/delBigType")
     @ResponseBody

@@ -12,36 +12,51 @@
                         <div class="layui-card-body" style="padding: 15px;">
                             <form class="layui-form" method="post"
                                   lay-filter="component-form-group" id="goodsEvaluateAddForm">
-                                <input type="hidden" name="id" th:value="${goodsEvaluate.id}">
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">地址</label>
+                                    <label class="layui-form-label">商品</label>
                                     <div class="layui-input-block">
-                                        <select name="smallTypeId">
+                                        <select name="goodsId">
                                             <option disabled selected>--请选择--</option>
-                                            <span th:each="address:${addressList}">
-                                                <option th:value="${address.id}" th:text="${address.address}"></option>
+                                            <span th:each="goods:${goodsList}">
+                                                <option th:value="${goods.id}" th:text="${goods.goodsName}"></option>
                                             </span>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">数量</label>
+                                    <label class="layui-form-label">用户</label>
                                     <div class="layui-input-block">
-                                        <input type="text" name="num" lay-verify="required" placeholder="数量"
-                                               autocomplete="off" class="layui-input" th:attr="value=${ord.num}">
+                                        <select name="userId">
+                                            <option disabled selected>--请选择--</option>
+                                            <span th:each="user:${userList}">
+                                                <option th:value="${user.id}" th:text="${user.userName}"></option>
+                                            </span>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="layui-form-item">
-                                    <label class="layui-form-label">订单状态</label>
+                                    <label class="layui-form-label">评论</label>
                                     <div class="layui-input-block">
-                                        <input type="text" name="ordState" lay-verify="required" placeholder="订单状态"
-                                               autocomplete="off" class="layui-input" th:attr="value=${ord.ordState}">
+                                        <textarea name="content" placeholder="在此输入评论" rows="7" cols="40"></textarea>
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">评分</label>
+                                    <div class="layui-input-block">
+                                        <select name="level">
+                                            <option disabled selected>--请选择--</option>
+                                            <option th:value="1" th:text="1"/>
+                                            <option th:value="2" th:text="2"/>
+                                            <option th:value="3" th:text="3"/>
+                                            <option th:value="4" th:text="4"/>
+                                            <option th:value="5" th:text="5"/>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="layui-form-item layui-layout-admin">
                                     <div class="layui-input-block">
                                         <div class="layui-footer" style="left: 0;">
-                                            <button id="ordAdd" class="layui-btn" lay-submit="" lay-filter="component-form-demo1"
+                                            <button id="goodsEvaluateAdd" class="layui-btn" lay-submit="" lay-filter="component-form-demo1"
                                                     type="button">立即提交
                                             </button>
                                             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
